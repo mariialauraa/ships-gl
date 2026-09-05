@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox, ttk
+from tkinter import messagebox
 
 from dados import carregar_dados, salvar_dados
 from styles import (COR_FUNDO, COR_TITULO, COR_TEXTO, COR_ADICIONAR, COR_EDITAR, COR_EXCLUIR, COR_LIMPAR, COR_TEXTO_BOTAO, FONTE_TITULO, FONTE_PADRAO, FONTE_LABEL, FONTE_BOTAO, FONTE_LISTA, COR_LISTA, COR_SELECAO, COR_TEXTO_SELECAO, COR_BORDA)
@@ -61,7 +61,7 @@ def criar_interface():
             )
             return
         
-        casal_antigo = lista_casais.get(selecao[0])
+        casal_antigo = lista_casais.get(selecao[0]).strip()
         novo_nome = entrada_casal.get().strip()
 
         if not novo_nome:
@@ -108,7 +108,7 @@ def criar_interface():
             )
             return
         
-        casal = lista_casais.get(selecao[0])
+        casal = lista_casais.get(selecao[0]).strip()
 
         confirmar = messagebox.askyesno(
             "Confirmar exclusão",
@@ -139,17 +139,19 @@ def criar_interface():
         if not selecao:
             return
 
-        casal = lista_casais.get(selecao[0])
+        casal = lista_casais.get(selecao[0]).strip()
 
         entrada_casal.delete(0, tk.END)
         entrada_casal.insert(0, casal)
 
         entrada_gl.delete(0, tk.END)
 
+        status_gl.set("nenhum")
+
         lista_gls.delete(0, tk.END)
 
         for gl in dados[casal]:
-            lista_gls.insert(tk.END, gl["nome"])
+            lista_gls.insert(tk.END, f" {gl['nome']}")
 
 
     def limpar_casal():
@@ -166,7 +168,7 @@ def criar_interface():
         lista_casais.delete(0, tk.END)
 
         for casal in sorted(dados, key=str.lower):
-            lista_casais.insert(tk.END, casal)
+            lista_casais.insert(tk.END, f" {casal}")
     
     # -------------------------
     # Funções GL
@@ -182,7 +184,7 @@ def criar_interface():
             )
             return
 
-        casal = lista_casais.get(selecao[0])
+        casal = lista_casais.get(selecao[0]).strip()
 
         gl = entrada_gl.get().strip()
 
@@ -200,9 +202,14 @@ def criar_interface():
             )
             return
 
+        status = status_gl.get()
+
+        if status == "nenhum":
+            status = "Quero assistir"
+
         dados[casal].append({
             "nome": gl,
-            "status": status_gl.get()
+            "status": status
         })
 
         salvar_dados(dados)
@@ -236,7 +243,7 @@ def criar_interface():
             )
             return
         
-        casal = lista_casais.get(selecao_casal[0])
+        casal = lista_casais.get(selecao_casal[0]).strip()
         indice_gl = selecao_gl[0]
 
         novo_nome_gl = entrada_gl.get().strip()
@@ -290,8 +297,8 @@ def criar_interface():
             )
             return
         
-        casal = lista_casais.get(selecao_casal[0])
-        gl = lista_gls.get(selecao_gl[0])
+        casal = lista_casais.get(selecao_casal[0]).strip()
+        gl = lista_gls.get(selecao_gl[0]).strip()
 
         confirmar = messagebox.askyesno(
             "Confirmar exclusão",
@@ -324,7 +331,7 @@ def criar_interface():
         if not selecao_casal:
             return
 
-        casal = lista_casais.get(selecao_casal[0])
+        casal = lista_casais.get(selecao_casal[0]).strip()
         indice_gl = selecao_gl[0]
 
         gl = dados[casal][indice_gl]
@@ -482,7 +489,8 @@ def criar_interface():
 
     label_casais = tk.Label(
         frame_ships,
-        text="Ships cadastrados:",
+        text="Ships:",
+        font=FONTE_LABEL,
         bg=COR_FUNDO,
         fg=COR_TEXTO
     )
@@ -497,10 +505,10 @@ def criar_interface():
         fg=COR_TEXTO,
         selectbackground=COR_SELECAO,
         selectforeground=COR_TEXTO_SELECAO,
-        highlightbackground=COR_BORDA,
-        highlightthickness=1,
         relief="flat",
         borderwidth=0,
+        highlightthickness=0,
+        activestyle="none",
         exportselection=False
     )
     lista_casais.pack(pady=10)
@@ -615,7 +623,8 @@ def criar_interface():
 
     label_gls = tk.Label(
         frame_gls,
-        text="GLs do ship selecionado:",
+        text="GLs:",
+        font=FONTE_LABEL,
         bg=COR_FUNDO,
         fg=COR_TEXTO
     )
@@ -630,10 +639,10 @@ def criar_interface():
         fg=COR_TEXTO,
         selectbackground=COR_SELECAO,
         selectforeground=COR_TEXTO_SELECAO,
-        highlightbackground=COR_BORDA,
-        highlightthickness=1,
         relief="flat",
         borderwidth=0,
+        highlightthickness=0,
+        activestyle="none",
         exportselection=False
     )
     lista_gls.pack(pady=10)
@@ -647,21 +656,32 @@ def criar_interface():
     )
     label_status_gl.pack(pady=(5, 5))
 
-    status_gl = ttk.Combobox(
-        frame_gls,
-        values=[
-            "Quero assistir",
-            "Assistindo",
-            "Finalizada",
-            "Abandonei"
-        ],
-        state="readonly",
-        width=32,
-        font=FONTE_PADRAO
-    )
+    status_gl = tk.StringVar(value="nenhum")
 
-    status_gl.pack(pady=(0, 10))
-    status_gl.set("Quero assistir")
+    frame_status_gl = tk.Frame(
+        frame_gls,
+        bg=COR_FUNDO
+    )
+    frame_status_gl.pack(pady=(0, 10))
+
+    status_opcoes = [
+        "Quero assistir",
+        "Assistindo",
+        "Finalizada",
+        "Abandonei"
+    ]
+
+    for status in status_opcoes:
+        radio = tk.Radiobutton(
+            frame_status_gl,
+            text=status,
+            variable=status_gl,
+            value=status,
+            font=FONTE_PADRAO,
+            bg=COR_FUNDO,
+            fg=COR_TEXTO
+        )
+        radio.pack(anchor="w", padx=2)
 
     lista_gls.bind(
         "<<ListboxSelect>>",
