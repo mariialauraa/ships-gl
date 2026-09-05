@@ -1,65 +1,158 @@
 {
     "LMSY": [
-        "Affair",
-        "Harmony Secret",
-        "Hometown Romance"
+        {
+            "nome": "Affair",
+            "status": "Finalizada"
+        },
+        {
+            "nome": "Harmony Secret",
+            "status": "Quero assistir"
+        },
+        {
+            "nome": "Hometown Romance",
+            "status": "Finalizada"
+        }
     ],
     "Englot": [
-        "Show Me Love",
-        "Love Bully",
-        "Petrichor",
-        "Unlimited Love",
-        "4 Elements: The Water"
+        {
+            "nome": "Show Me Love",
+            "status": "Quero assistir"
+        },
+        {
+            "nome": "Love Bully",
+            "status": "Quero assistir"
+        },
+        {
+            "nome": "Petrichor",
+            "status": "Quero assistir"
+        },
+        {
+            "nome": "Unlimited Love",
+            "status": "Assistindo"
+        },
+        {
+            "nome": "4 Elements: The Water",
+            "status": "Finalizada"
+        }
     ],
     "FreenBecky": [
-        "GAP: The Series",
-        "Uranus 2324",
-        "The Loyal Pin",
-        "4 Elements: The Air",
-        "Cranium"
+        {
+            "nome": "GAP: The Series",
+            "status": "Finalizada"
+        },
+        {
+            "nome": "Uranus 2324",
+            "status": "Finalizada"
+        },
+        {
+            "nome": "The Loyal Pin",
+            "status": "Quero assistir"
+        },
+        {
+            "nome": "4 Elements: The Air",
+            "status": "Finalizada"
+        },
+        {
+            "nome": "Cranium",
+            "status": "Quero assistir"
+        }
     ],
     "LingOrm": [
-        "The Secret of Us",
-        "Only You",
-        "In Love Forever"
+        {
+            "nome": "The Secret of Us",
+            "status": "Quero assistir"
+        },
+        {
+            "nome": "Only You",
+            "status": "Quero assistir"
+        },
+        {
+            "nome": "In Love Forever",
+            "status": "Finalizada"
+        }
     ],
     "JanJingjing": [
-        "MuTe / Luv: Hello, is this",
-        "Enemies with Benefits"
+        {
+            "nome": "MuTe / Luv: Hello, is this",
+            "status": "Quero assistir"
+        },
+        {
+            "nome": "Enemies with Benefits",
+            "status": "Finalizada"
+        }
     ],
     "EmiBonnie": [
-        "Us",
-        "Moonshadow"
+        {
+            "nome": "Us",
+            "status": "Quero assistir"
+        },
+        {
+            "nome": "Moonshadow",
+            "status": "Assistindo"
+        }
     ],
     "FayeYoko": [
-        "Blank S1",
-        "Blank S2"
+        {
+            "nome": "Blank S1",
+            "status": "Finalizada"
+        },
+        {
+            "nome": "Blank S2",
+            "status": "Finalizada"
+        }
     ],
     "FayeAtom": [
-        "Broken of Love"
+        {
+            "nome": "Broken of Love",
+            "status": "Quero assistir"
+        }
     ],
     "BleJie": [
-        "ClaireBell"
+        {
+            "nome": "ClaireBell",
+            "status": "Finalizada"
+        }
     ],
     "MieAya": [
-        "Love Beyond Dreams"
+        {
+            "nome": "Love Beyond Dreams",
+            "status": "Finalizada"
+        }
     ],
     "MyChan": [
-        "AI Girl"
+        {
+            "nome": "AI Girl",
+            "status": "Quero assistir"
+        }
     ],
     "AppleMim": [
-        "4 Elements: The Earth"
+        {
+            "nome": "4 Elements: The Earth",
+            "status": "Finalizada"
+        }
     ],
     "NamneungNoey": [
-        "4 Elements: The Fire"
+        {
+            "nome": "4 Elements: The Fire",
+            "status": "Finalizada"
+        }
     ],
     "KaoJane": [
-        "Love Design"
+        {
+            "nome": "Love Design",
+            "status": "Assistindo"
+        }
     ],
     "ViewJune": [
-        "23.5"
+        {
+            "nome": "23.5",
+            "status": "Quero assistir"
+        }
     ],
     "MilkLove": [
-        "23.5"
+        {
+            "nome": "23.5",
+            "status": "Quero assistir"
+        }
     ]
 }

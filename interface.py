@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 
 from dados import carregar_dados, salvar_dados
 from styles import (COR_FUNDO, COR_TITULO, COR_TEXTO, COR_ADICIONAR, COR_EDITAR, COR_EXCLUIR, COR_LIMPAR, COR_TEXTO_BOTAO, FONTE_TITULO, FONTE_PADRAO, FONTE_LABEL, FONTE_BOTAO, FONTE_LISTA, COR_LISTA, COR_SELECAO, COR_TEXTO_SELECAO, COR_BORDA)
@@ -149,7 +149,7 @@ def criar_interface():
         lista_gls.delete(0, tk.END)
 
         for gl in dados[casal]:
-            lista_gls.insert(tk.END, gl)
+            lista_gls.insert(tk.END, gl["nome"])
 
 
     def limpar_casal():
@@ -193,14 +193,17 @@ def criar_interface():
             )
             return
 
-        if gl in dados[casal]:
+        if any(item["nome"] == gl for item in dados[casal]):
             messagebox.showwarning(
                 "Atenção",
                 "Essa GL já está cadastrada para esse ship."
             )
             return
 
-        dados[casal].append(gl)
+        dados[casal].append({
+            "nome": gl,
+            "status": status_gl.get()
+        })
 
         salvar_dados(dados)
 
@@ -234,9 +237,10 @@ def criar_interface():
             return
         
         casal = lista_casais.get(selecao_casal[0])
-        gl_antiga = lista_gls.get(selecao_gl[0])
+        indice_gl = selecao_gl[0]
 
         novo_nome_gl = entrada_gl.get().strip()
+        novo_status = status_gl.get()
 
         if not novo_nome_gl:
             messagebox.showwarning(
@@ -245,30 +249,25 @@ def criar_interface():
             )
             return
         
-        if novo_nome_gl == gl_antiga:
-            messagebox.showwarning(
-                "Atenção",
-                "O novo nome é igual ao nome atual."
-            )
-            return
-        
-        if novo_nome_gl in dados[casal]:
+        if any(
+            item["nome"] == novo_nome_gl and i != indice_gl
+            for i, item in enumerate(dados[casal])
+        ):
             messagebox.showwarning(
                 "Atenção",
                 "Essa GL já está cadastrada para esse ship."
             )
             return
         
-        indice_gl = dados[casal].index(gl_antiga)
-        dados[casal][indice_gl] = novo_nome_gl
-        salvar_dados(dados)
+        dados[casal][indice_gl]["nome"] = novo_nome_gl
+        dados[casal][indice_gl]["status"] = novo_status
 
-        entrada_gl.delete(0, tk.END)
+        salvar_dados(dados)
         selecionar_casal()
 
         messagebox.showinfo(
             "Sucesso",
-            f"{gl_antiga} foi alterada para {novo_nome_gl} no ship {casal}."
+            f"A GL '{novo_nome_gl}' foi atualizada."
         )
 
     
@@ -302,7 +301,7 @@ def criar_interface():
         if not confirmar:
             return      
 
-        dados[casal].remove(gl)
+        dados[casal].remove(next(item for item in dados[casal] if item["nome"] == gl))
         salvar_dados(dados)
         entrada_gl.delete(0, tk.END)
         
@@ -315,14 +314,25 @@ def criar_interface():
 
 
     def selecionar_gl(event=None):
-        selecao = lista_gls.curselection()
+        selecao_gl = lista_gls.curselection()
 
-        if not selecao:
+        if not selecao_gl:
             return
 
-        gl = lista_gls.get(selecao[0])
+        selecao_casal = lista_casais.curselection()
+
+        if not selecao_casal:
+            return
+
+        casal = lista_casais.get(selecao_casal[0])
+        indice_gl = selecao_gl[0]
+
+        gl = dados[casal][indice_gl]
+
         entrada_gl.delete(0, tk.END)
-        entrada_gl.insert(0, gl)
+        entrada_gl.insert(0, gl["nome"])
+
+        status_gl.set(gl["status"])
 
 
     def limpar_gl():
@@ -627,6 +637,31 @@ def criar_interface():
         exportselection=False
     )
     lista_gls.pack(pady=10)
+
+    label_status_gl = tk.Label(
+        frame_gls,
+        text="Status:",
+        font=FONTE_LABEL,
+        bg=COR_FUNDO,
+        fg=COR_TEXTO
+    )
+    label_status_gl.pack(pady=(5, 5))
+
+    status_gl = ttk.Combobox(
+        frame_gls,
+        values=[
+            "Quero assistir",
+            "Assistindo",
+            "Finalizada",
+            "Abandonei"
+        ],
+        state="readonly",
+        width=32,
+        font=FONTE_PADRAO
+    )
+
+    status_gl.pack(pady=(0, 10))
+    status_gl.set("Quero assistir")
 
     lista_gls.bind(
         "<<ListboxSelect>>",
