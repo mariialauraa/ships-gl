@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 from dados import carregar_dados, salvar_dados
+from styles import (COR_FUNDO, COR_TITULO, COR_TEXTO, COR_ADICIONAR, COR_EDITAR, COR_EXCLUIR, COR_LIMPAR, COR_TEXTO_BOTAO, FONTE_TITULO, FONTE_PADRAO, FONTE_LABEL, FONTE_BOTAO, FONTE_LISTA, COR_LISTA, COR_SELECAO, COR_TEXTO_SELECAO, COR_BORDA)
 
 
 def criar_interface():
@@ -14,6 +15,7 @@ def criar_interface():
     janela = tk.Tk()
     janela.title("Ships GL")
     janela.geometry("750x600")
+    janela.configure(bg=COR_FUNDO)
 
     # -------------------------
     # Funções
@@ -163,7 +165,7 @@ def criar_interface():
     def atualizar_lista_casais():
         lista_casais.delete(0, tk.END)
 
-        for casal in dados:
+        for casal in sorted(dados, key=str.lower):
             lista_casais.insert(tk.END, casal)
     
     # -------------------------
@@ -336,7 +338,9 @@ def criar_interface():
     titulo = tk.Label(
         janela,
         text="Ships de GL",
-        font=("Arial", 20, "bold")
+        font=FONTE_TITULO,
+        bg=COR_FUNDO,
+        fg=COR_TITULO
     )
     titulo.pack(pady=20)
 
@@ -344,10 +348,10 @@ def criar_interface():
     # Frames principais
     # -------------------------
 
-    frame_principal = tk.Frame(janela)
+    frame_principal = tk.Frame(janela, bg=COR_FUNDO)
     frame_principal.pack(padx=20, pady=20)
 
-    frame_ships = tk.Frame(frame_principal)
+    frame_ships = tk.Frame(frame_principal, bg=COR_FUNDO)
     frame_ships.grid(
         row=0,
         column=0,
@@ -355,7 +359,7 @@ def criar_interface():
         sticky="n"
     )
 
-    frame_gls = tk.Frame(frame_principal)
+    frame_gls = tk.Frame(frame_principal, bg=COR_FUNDO)
     frame_gls.grid(
         row=0,
         column=1,
@@ -369,23 +373,34 @@ def criar_interface():
 
     label_casal = tk.Label(
         frame_ships,
-        text="Nome do ship:"
+        text="Nome do ship:",
+        font=FONTE_LABEL,
+        bg=COR_FUNDO,
+        fg=COR_TEXTO
     )
     label_casal.pack(pady=(0, 5))
 
     entrada_casal = tk.Entry(
         frame_ships,
-        width=30
+        width=35,
+        font=FONTE_PADRAO
     )
-    entrada_casal.pack(pady=5)
+    entrada_casal.pack(pady=10, ipady=4)
 
-    frame_botoes_ship = tk.Frame(frame_ships)
+    frame_botoes_ship = tk.Frame(frame_ships, bg=COR_FUNDO)
     frame_botoes_ship.pack(pady=10)
 
     botao_adicionar = tk.Button(
         frame_botoes_ship,
         text="Adicionar ship",
-        command=adicionar_casal
+        command=adicionar_casal,
+        font=FONTE_BOTAO,
+        bg=COR_ADICIONAR,
+        fg=COR_TEXTO_BOTAO,
+        relief="flat",
+        cursor="hand2",
+        padx=10,
+        pady=5
     )
     
     botao_adicionar.grid(
@@ -398,7 +413,14 @@ def criar_interface():
     botao_editar_casal = tk.Button(
         frame_botoes_ship,
         text="Editar ship",
-        command=editar_casal
+        command=editar_casal,
+        font=FONTE_BOTAO,
+        bg=COR_EDITAR,
+        fg=COR_TEXTO_BOTAO,
+        relief="flat",
+        cursor="hand2",
+        padx=10,
+        pady=5
     )
 
     botao_editar_casal.grid(
@@ -411,7 +433,14 @@ def criar_interface():
     botao_deletar_casal = tk.Button(
         frame_botoes_ship,
         text="Excluir ship",
-        command=deletar_casal
+        command=deletar_casal,
+        font=FONTE_BOTAO,
+        bg=COR_EXCLUIR,
+        fg=COR_TEXTO_BOTAO,
+        relief="flat",
+        cursor="hand2",
+        padx=10,
+        pady=5
     )
 
     botao_deletar_casal.grid(
@@ -424,7 +453,14 @@ def criar_interface():
     botao_limpar_casal = tk.Button(
         frame_botoes_ship,
         text="Limpar ship",
-        command=limpar_casal
+        command=limpar_casal,
+        font=FONTE_BOTAO,
+        bg=COR_LIMPAR,
+        fg=COR_TEXTO_BOTAO,
+        relief="flat",
+        cursor="hand2",
+        padx=10,
+        pady=5
     )
 
     botao_limpar_casal.grid(
@@ -436,14 +472,25 @@ def criar_interface():
 
     label_casais = tk.Label(
         frame_ships,
-        text="Ships cadastrados:"
+        text="Ships cadastrados:",
+        bg=COR_FUNDO,
+        fg=COR_TEXTO
     )
     label_casais.pack(pady=(20, 5))
 
     lista_casais = tk.Listbox(
         frame_ships,
-        width=40,
-        height=10,
+        width=35,
+        height=12,
+        font=FONTE_LISTA,
+        bg=COR_LISTA,
+        fg=COR_TEXTO,
+        selectbackground=COR_SELECAO,
+        selectforeground=COR_TEXTO_SELECAO,
+        highlightbackground=COR_BORDA,
+        highlightthickness=1,
+        relief="flat",
+        borderwidth=0,
         exportselection=False
     )
     lista_casais.pack(pady=10)
@@ -459,23 +506,34 @@ def criar_interface():
 
     label_nova_gl = tk.Label(
         frame_gls,
-        text="Nome da GL:"
+        text="Nome da GL:",
+        font=FONTE_LABEL,
+        bg=COR_FUNDO,
+        fg=COR_TEXTO
     )
     label_nova_gl.pack(pady=(0, 5))
 
     entrada_gl = tk.Entry(
         frame_gls,
-        width=30
+        width=35,
+        font=FONTE_PADRAO
     )
-    entrada_gl.pack(pady=5)
+    entrada_gl.pack(pady=10, ipady=4)
 
-    frame_botoes_gl = tk.Frame(frame_gls)
+    frame_botoes_gl = tk.Frame(frame_gls, bg=COR_FUNDO)
     frame_botoes_gl.pack(pady=10)
 
     botao_adicionar_gl = tk.Button(
         frame_botoes_gl,
         text="Adicionar GL",
-        command=adicionar_gl
+        command=adicionar_gl,
+        font=FONTE_BOTAO,
+        bg=COR_ADICIONAR,
+        fg=COR_TEXTO_BOTAO,
+        relief="flat",
+        cursor="hand2",
+        padx=10,
+        pady=5
     )
 
     botao_adicionar_gl.grid(
@@ -488,7 +546,14 @@ def criar_interface():
     botao_editar_gl = tk.Button(
         frame_botoes_gl,
         text="Editar GL",
-        command=editar_gl
+        command=editar_gl,
+        font=FONTE_BOTAO,
+        bg=COR_EDITAR,
+        fg=COR_TEXTO_BOTAO,
+        relief="flat",
+        cursor="hand2",
+        padx=10,
+        pady=5
     )
 
     botao_editar_gl.grid(
@@ -501,7 +566,14 @@ def criar_interface():
     botao_deletar_gl = tk.Button(
         frame_botoes_gl,
         text="Excluir GL",
-        command=deletar_gl
+        command=deletar_gl,
+        font=FONTE_BOTAO,
+        bg=COR_EXCLUIR,
+        fg=COR_TEXTO_BOTAO,
+        relief="flat",
+        cursor="hand2",
+        padx=10,
+        pady=5
     )
 
     botao_deletar_gl.grid(
@@ -514,7 +586,14 @@ def criar_interface():
     botao_limpar_gl = tk.Button(
         frame_botoes_gl,
         text="Limpar GL",
-        command=limpar_gl
+        command=limpar_gl,
+        font=FONTE_BOTAO,
+        bg=COR_LIMPAR,
+        fg=COR_TEXTO_BOTAO,
+        relief="flat",
+        cursor="hand2",
+        padx=10,
+        pady=5
     )
 
     botao_limpar_gl.grid(
@@ -526,14 +605,25 @@ def criar_interface():
 
     label_gls = tk.Label(
         frame_gls,
-        text="GLs do ship selecionado:"
+        text="GLs do ship selecionado:",
+        bg=COR_FUNDO,
+        fg=COR_TEXTO
     )
     label_gls.pack(pady=(20, 5))
 
     lista_gls = tk.Listbox(
         frame_gls,
-        width=40,
-        height=10,
+        width=35,
+        height=12,
+        font=FONTE_LISTA,
+        bg=COR_LISTA,
+        fg=COR_TEXTO,
+        selectbackground=COR_SELECAO,
+        selectforeground=COR_TEXTO_SELECAO,
+        highlightbackground=COR_BORDA,
+        highlightthickness=1,
+        relief="flat",
+        borderwidth=0,
         exportselection=False
     )
     lista_gls.pack(pady=10)
