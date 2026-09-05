@@ -13,18 +13,11 @@ def criar_interface():
 
     janela = tk.Tk()
     janela.title("Ships GL")
-    janela.geometry("650x700")
+    janela.geometry("750x600")
 
     # -------------------------
     # Funções
     # -------------------------
-
-    def atualizar_lista_casais():
-        lista_casais.delete(0, tk.END)
-
-        for casal in dados:
-            lista_casais.insert(tk.END, casal)
-
 
     def adicionar_casal():
         casal = entrada_casal.get().strip()
@@ -54,20 +47,6 @@ def criar_interface():
             "Sucesso",
             f"{casal} foi adicionado."
         )
-
-
-    def selecionar_casal(event=None):
-        selecao = lista_casais.curselection()
-
-        if not selecao:
-            return
-
-        casal = lista_casais.get(selecao[0])
-
-        lista_gls.delete(0, tk.END)
-
-        for gl in dados[casal]:
-            lista_gls.insert(tk.END, gl)
 
 
     def editar_casal():
@@ -117,25 +96,6 @@ def criar_interface():
         )
 
 
-    def selecionar_casal(event=None):
-        selecao = lista_casais.curselection()
-
-        if not selecao:
-            return
-
-        casal = lista_casais.get(selecao[0])
-
-        entrada_casal.delete(0, tk.END)
-        entrada_casal.insert(0, casal)
-
-        entrada_gl.delete(0, tk.END)
-
-        lista_gls.delete(0, tk.END)
-
-        for gl in dados[casal]:
-            lista_gls.insert(tk.END, gl)
-
-
     def deletar_casal():
         selecao = lista_casais.curselection()
 
@@ -170,6 +130,45 @@ def criar_interface():
             f"{casal} foi excluído."
         )
 
+
+    def selecionar_casal(event=None):
+        selecao = lista_casais.curselection()
+
+        if not selecao:
+            return
+
+        casal = lista_casais.get(selecao[0])
+
+        entrada_casal.delete(0, tk.END)
+        entrada_casal.insert(0, casal)
+
+        entrada_gl.delete(0, tk.END)
+
+        lista_gls.delete(0, tk.END)
+
+        for gl in dados[casal]:
+            lista_gls.insert(tk.END, gl)
+
+
+    def limpar_casal():
+        entrada_casal.delete(0, tk.END)
+        lista_casais.selection_clear(0, tk.END)
+
+        entrada_gl.delete(0, tk.END)
+        lista_gls.delete(0, tk.END)
+
+        entrada_casal.focus_set()
+
+
+    def atualizar_lista_casais():
+        lista_casais.delete(0, tk.END)
+
+        for casal in dados:
+            lista_casais.insert(tk.END, casal)
+    
+    # -------------------------
+    # Funções GL
+    # -------------------------
 
     def adicionar_gl():
         selecao = lista_casais.curselection()
@@ -269,17 +268,6 @@ def criar_interface():
             "Sucesso",
             f"{gl_antiga} foi alterada para {novo_nome_gl} no ship {casal}."
         )
-    
-
-    def selecionar_gl(event=None):
-        selecao = lista_gls.curselection()
-
-        if not selecao:
-            return
-
-        gl = lista_gls.get(selecao[0])
-        entrada_gl.delete(0, tk.END)
-        entrada_gl.insert(0, gl)
 
     
     def deletar_gl():
@@ -323,6 +311,24 @@ def criar_interface():
             f"A GL '{gl}' foi deletada do ship '{casal}'."
         )
 
+
+    def selecionar_gl(event=None):
+        selecao = lista_gls.curselection()
+
+        if not selecao:
+            return
+
+        gl = lista_gls.get(selecao[0])
+        entrada_gl.delete(0, tk.END)
+        entrada_gl.insert(0, gl)
+
+
+    def limpar_gl():
+        entrada_gl.delete(0, tk.END)
+        lista_gls.selection_clear(0, tk.END)
+
+        entrada_gl.focus_set()
+
     # -------------------------
     # Interface
     # -------------------------
@@ -335,43 +341,107 @@ def criar_interface():
     titulo.pack(pady=20)
 
     # -------------------------
-    # Casal (ship) Section
+    # Frames principais
+    # -------------------------
+
+    frame_principal = tk.Frame(janela)
+    frame_principal.pack(padx=20, pady=20)
+
+    frame_ships = tk.Frame(frame_principal)
+    frame_ships.grid(
+        row=0,
+        column=0,
+        padx=20,
+        sticky="n"
+    )
+
+    frame_gls = tk.Frame(frame_principal)
+    frame_gls.grid(
+        row=0,
+        column=1,
+        padx=20,
+        sticky="n"
+    )
+
+    # -------------------------
+    # Seção de Ships
     # -------------------------
 
     label_casal = tk.Label(
-        janela,
+        frame_ships,
         text="Nome do ship:"
     )
-    label_casal.pack()
+    label_casal.pack(pady=(0, 5))
 
     entrada_casal = tk.Entry(
-        janela,
+        frame_ships,
         width=30
     )
-    entrada_casal.pack(pady=10)
+    entrada_casal.pack(pady=5)
+
+    frame_botoes_ship = tk.Frame(frame_ships)
+    frame_botoes_ship.pack(pady=10)
 
     botao_adicionar = tk.Button(
-        janela,
+        frame_botoes_ship,
         text="Adicionar ship",
         command=adicionar_casal
     )
-    botao_adicionar.pack(pady=10)
+    
+    botao_adicionar.grid(
+        row=0,
+        column=0,
+        padx=5,
+        pady=5
+    )
 
     botao_editar_casal = tk.Button(
-        janela,
+        frame_botoes_ship,
         text="Editar ship",
         command=editar_casal
     )
-    botao_editar_casal.pack(pady=5)
 
-    label_lista = tk.Label(
-        janela,
+    botao_editar_casal.grid(
+        row=0,
+        column=1,
+        padx=5,
+        pady=5
+    )
+
+    botao_deletar_casal = tk.Button(
+        frame_botoes_ship,
+        text="Excluir ship",
+        command=deletar_casal
+    )
+
+    botao_deletar_casal.grid(
+        row=1,
+        column=0,
+        padx=5,
+        pady=5
+    )
+
+    botao_limpar_casal = tk.Button(
+        frame_botoes_ship,
+        text="Limpar ship",
+        command=limpar_casal
+    )
+
+    botao_limpar_casal.grid(
+        row=1,
+        column=1,
+        padx=5,
+        pady=5
+    )
+
+    label_casais = tk.Label(
+        frame_ships,
         text="Ships cadastrados:"
     )
-    label_lista.pack(pady=(20, 5))
+    label_casais.pack(pady=(20, 5))
 
     lista_casais = tk.Listbox(
-        janela,
+        frame_ships,
         width=40,
         height=10,
         exportselection=False
@@ -383,25 +453,85 @@ def criar_interface():
         selecionar_casal
     )
 
-    botao_deletar_casal = tk.Button(
-        janela,
-        text="Excluir ship",
-        command=deletar_casal
-    )
-    botao_deletar_casal.pack(pady=5)
+    # -------------------------
+    # Seção de GLs
+    # -------------------------
 
-    # -------------------------
-    # GL Section
-    # -------------------------
+    label_nova_gl = tk.Label(
+        frame_gls,
+        text="Nome da GL:"
+    )
+    label_nova_gl.pack(pady=(0, 5))
+
+    entrada_gl = tk.Entry(
+        frame_gls,
+        width=30
+    )
+    entrada_gl.pack(pady=5)
+
+    frame_botoes_gl = tk.Frame(frame_gls)
+    frame_botoes_gl.pack(pady=10)
+
+    botao_adicionar_gl = tk.Button(
+        frame_botoes_gl,
+        text="Adicionar GL",
+        command=adicionar_gl
+    )
+
+    botao_adicionar_gl.grid(
+        row=0,
+        column=0,
+        padx=5,
+        pady=5
+    )
+
+    botao_editar_gl = tk.Button(
+        frame_botoes_gl,
+        text="Editar GL",
+        command=editar_gl
+    )
+
+    botao_editar_gl.grid(
+        row=0,
+        column=1,
+        padx=5,
+        pady=5
+    )
+    
+    botao_deletar_gl = tk.Button(
+        frame_botoes_gl,
+        text="Excluir GL",
+        command=deletar_gl
+    )
+
+    botao_deletar_gl.grid(
+        row=1,
+        column=0,
+        padx=5,
+        pady=5
+    )
+
+    botao_limpar_gl = tk.Button(
+        frame_botoes_gl,
+        text="Limpar GL",
+        command=limpar_gl
+    )
+
+    botao_limpar_gl.grid(
+        row=1,
+        column=1,
+        padx=5,
+        pady=5
+    )
 
     label_gls = tk.Label(
-        janela,
+        frame_gls,
         text="GLs do ship selecionado:"
     )
     label_gls.pack(pady=(20, 5))
 
     lista_gls = tk.Listbox(
-        janela,
+        frame_gls,
         width=40,
         height=10,
         exportselection=False
@@ -412,39 +542,6 @@ def criar_interface():
         "<<ListboxSelect>>",
         selecionar_gl
     )
-
-    label_nova_gl = tk.Label(
-        janela,
-        text="Nome da GL:"
-    )
-    label_nova_gl.pack(pady=(10, 5))
-
-    entrada_gl = tk.Entry(
-        janela,
-        width=30
-    )
-    entrada_gl.pack(pady=5)
-
-    botao_adicionar_gl = tk.Button(
-        janela,
-        text="Adicionar GL",
-        command=adicionar_gl
-    )
-    botao_adicionar_gl.pack(pady=10)
-
-    botao_editar_gl = tk.Button(
-        janela,
-        text="Editar GL",
-        command=editar_gl
-    )
-    botao_editar_gl.pack(pady=5)
-
-    botao_deletar_gl = tk.Button(
-        janela,
-        text="Deletar GL",
-        command=deletar_gl
-    )
-    botao_deletar_gl.pack(pady=5)
 
     # -------------------------
     # Inicialização
