@@ -1,9 +1,11 @@
 import tkinter as tk
 from tkinter import messagebox
 
-from dados import carregar_dados, salvar_dados
-from styles import (COR_FUNDO, COR_TITULO, COR_TEXTO, COR_ADICIONAR, COR_EDITAR, COR_EXCLUIR, COR_LIMPAR, COR_TEXTO_BOTAO, FONTE_TITULO, FONTE_PADRAO, FONTE_LABEL, FONTE_BOTAO, FONTE_LISTA, COR_LISTA, COR_SELECAO, COR_TEXTO_SELECAO, COR_BORDA)
+from styles import (COR_FUNDO, COR_TITULO, FONTE_TITULO, FONTE_PADRAO, FONTE_LABEL)
 
+from dados import carregar_dados, salvar_dados
+from interface_ships import criar_secao_ships
+from interface_gls import criar_secao_gls
 
 def criar_interface():
     dados = carregar_dados()
@@ -411,416 +413,36 @@ def criar_interface():
     # Frames principais
     # -------------------------
 
-    frame_principal = tk.Frame(janela, bg=COR_FUNDO)
+    frame_principal = tk.Frame(
+        janela, 
+        bg=COR_FUNDO
+    )
     frame_principal.pack(padx=20, pady=20)
 
-    frame_ships = tk.Frame(frame_principal, bg=COR_FUNDO)
-    frame_ships.grid(
-        row=0,
-        column=0,
-        padx=20,
-        sticky="n"
-    )
-
-    frame_gls = tk.Frame(frame_principal, bg=COR_FUNDO)
-    frame_gls.grid(
-        row=0,
-        column=1,
-        padx=20,
-        sticky="n"
-    )
-
-    # -------------------------
-    # Seção de Ships
-    # -------------------------
-
-    label_casal = tk.Label(
-        frame_ships,
-        text="Nome do ship:",
-        font=FONTE_LABEL,
-        bg=COR_FUNDO,
-        fg=COR_TEXTO
-    )
-    label_casal.pack(pady=(0, 5))
-
-    entrada_casal = tk.Entry(
-        frame_ships,
-        width=30,
-        font=FONTE_PADRAO
-    )
-    entrada_casal.pack(pady=10, ipady=4)
-
-    frame_botoes_ship = tk.Frame(frame_ships, bg=COR_FUNDO)
-    frame_botoes_ship.pack(pady=10)
-
-    botao_adicionar = tk.Button(
-        frame_botoes_ship,
-        text="Adicionar ship",
-        command=adicionar_casal,
-        font=FONTE_BOTAO,
-        bg=COR_ADICIONAR,
-        fg=COR_TEXTO_BOTAO,
-        relief="flat",
-        cursor="hand2",
-        padx=10,
-        pady=5
-    )
-    
-    botao_adicionar.grid(
-        row=0,
-        column=0,
-        padx=5,
-        pady=5
-    )
-
-    botao_editar_casal = tk.Button(
-        frame_botoes_ship,
-        text="Editar ship",
-        command=editar_casal,
-        font=FONTE_BOTAO,
-        bg=COR_EDITAR,
-        fg=COR_TEXTO_BOTAO,
-        relief="flat",
-        cursor="hand2",
-        padx=10,
-        pady=5
-    )
-
-    botao_editar_casal.grid(
-        row=0,
-        column=1,
-        padx=5,
-        pady=5
-    )
-
-    botao_deletar_casal = tk.Button(
-        frame_botoes_ship,
-        text="Excluir ship",
-        command=deletar_casal,
-        font=FONTE_BOTAO,
-        bg=COR_EXCLUIR,
-        fg=COR_TEXTO_BOTAO,
-        relief="flat",
-        cursor="hand2",
-        padx=10,
-        pady=5
-    )
-
-    botao_deletar_casal.grid(
-        row=1,
-        column=0,
-        padx=5,
-        pady=5
-    )
-
-    botao_limpar_casal = tk.Button(
-        frame_botoes_ship,
-        text="Limpar ship",
-        command=limpar_casal,
-        font=FONTE_BOTAO,
-        bg=COR_LIMPAR,
-        fg=COR_TEXTO_BOTAO,
-        relief="flat",
-        cursor="hand2",
-        padx=10,
-        pady=5
-    )
-
-    botao_limpar_casal.grid(
-        row=1,
-        column=1,
-        padx=5,
-        pady=5
-    )
-
-    label_casais = tk.Label(
-        frame_ships,
-        text="Ships:",
-        font=FONTE_LABEL,
-        bg=COR_FUNDO,
-        fg=COR_TEXTO
-    )
-    label_casais.pack(pady=(20, 5))
-
-    lista_casais = tk.Listbox(
-        frame_ships,
-        width=35,
-        height=12,
-        font=FONTE_LISTA,
-        bg=COR_LISTA,
-        fg=COR_TEXTO,
-        selectbackground=COR_SELECAO,
-        selectforeground=COR_TEXTO_SELECAO,
-        relief="flat",
-        borderwidth=0,
-        highlightthickness=0,
-        activestyle="none",
-        exportselection=False
-    )
-    lista_casais.pack(pady=10)
-
-    lista_casais.bind(
-        "<<ListboxSelect>>",
+    entrada_casal, lista_casais = criar_secao_ships(
+        frame_principal,
+        adicionar_casal,
+        editar_casal,
+        deletar_casal,
+        limpar_casal,
         selecionar_casal
     )
 
-    # -------------------------
-    # Seção de GLs
-    # -------------------------
-
-    frame_campo_gl = tk.Frame(
-        frame_gls,
-        bg=COR_FUNDO
+    (
+        entrada_gl,
+        entrada_ano_gl,
+        lista_gls,
+        status_gl,
+        radio_status
+    ) = criar_secao_gls(
+        frame_principal,
+        adicionar_gl,
+        editar_gl,
+        deletar_gl,
+        limpar_gl,
+        selecionar_gl,
+        atualizar_destaque_status
     )
-    frame_campo_gl.pack()
-
-    label_nova_gl = tk.Label(
-        frame_campo_gl,
-        text="Nome da GL:",
-        font=FONTE_LABEL,
-        bg=COR_FUNDO,
-        fg=COR_TEXTO
-    )
-
-    label_nova_gl.grid(
-        row=0,
-        column=0,
-        sticky="w",
-        padx=(0, 10),
-        pady=(0, 5)
-    )
-
-    entrada_gl = tk.Entry(
-        frame_campo_gl,
-        width=30,
-        font=FONTE_PADRAO
-    )
-
-    entrada_gl.grid(
-        row=1,
-        column=0,
-        padx=(0, 10),
-        pady=10,
-        ipady=4
-    )
-
-    label_ano_gl = tk.Label(
-        frame_campo_gl,
-        text="Ano:",
-        font=FONTE_LABEL,
-        bg=COR_FUNDO,
-        fg=COR_TEXTO
-    )
-
-    label_ano_gl.grid(
-        row=0,
-        column=1,
-        sticky="w",
-        pady=(0, 5)
-    )
-
-    entrada_ano_gl = tk.Entry(
-        frame_campo_gl,
-        width=10,
-        font=FONTE_PADRAO
-    )
-
-    entrada_ano_gl.grid(
-        row=1,
-        column=1,
-        pady=10,
-        ipady=4
-    )
-
-    frame_botoes_gl = tk.Frame(frame_gls, bg=COR_FUNDO)
-    frame_botoes_gl.pack(pady=10)
-
-    botao_adicionar_gl = tk.Button(
-        frame_botoes_gl,
-        text="Adicionar GL",
-        command=adicionar_gl,
-        font=FONTE_BOTAO,
-        bg=COR_ADICIONAR,
-        fg=COR_TEXTO_BOTAO,
-        relief="flat",
-        cursor="hand2",
-        padx=10,
-        pady=5
-    )
-
-    botao_adicionar_gl.grid(
-        row=0,
-        column=0,
-        padx=5,
-        pady=5
-    )
-
-    botao_editar_gl = tk.Button(
-        frame_botoes_gl,
-        text="Editar GL",
-        command=editar_gl,
-        font=FONTE_BOTAO,
-        bg=COR_EDITAR,
-        fg=COR_TEXTO_BOTAO,
-        relief="flat",
-        cursor="hand2",
-        padx=10,
-        pady=5
-    )
-
-    botao_editar_gl.grid(
-        row=0,
-        column=1,
-        padx=5,
-        pady=5
-    )
-    
-    botao_deletar_gl = tk.Button(
-        frame_botoes_gl,
-        text="Excluir GL",
-        command=deletar_gl,
-        font=FONTE_BOTAO,
-        bg=COR_EXCLUIR,
-        fg=COR_TEXTO_BOTAO,
-        relief="flat",
-        cursor="hand2",
-        padx=10,
-        pady=5
-    )
-
-    botao_deletar_gl.grid(
-        row=1,
-        column=0,
-        padx=5,
-        pady=5
-    )
-
-    botao_limpar_gl = tk.Button(
-        frame_botoes_gl,
-        text="Limpar GL",
-        command=limpar_gl,
-        font=FONTE_BOTAO,
-        bg=COR_LIMPAR,
-        fg=COR_TEXTO_BOTAO,
-        relief="flat",
-        cursor="hand2",
-        padx=10,
-        pady=5
-    )
-
-    botao_limpar_gl.grid(
-        row=1,
-        column=1,
-        padx=5,
-        pady=5
-    )
-
-    frame_lista_status = tk.Frame(
-        frame_gls,
-        bg=COR_FUNDO
-    )
-    frame_lista_status.pack()
-
-    label_gls = tk.Label(
-        frame_lista_status,
-        text="GLs:",
-        font=FONTE_LABEL,
-        bg=COR_FUNDO,
-        fg=COR_TEXTO
-    )
-
-    label_gls.grid(
-        row=0,
-        column=0,
-        sticky="w",
-        pady=(20, 5)
-    )
-
-    lista_gls = tk.Listbox(
-        frame_lista_status,
-        width=35,
-        height=12,
-        font=FONTE_LISTA,
-        bg=COR_LISTA,
-        fg=COR_TEXTO,
-        selectbackground=COR_SELECAO,
-        selectforeground=COR_TEXTO_SELECAO,
-        relief="flat",
-        borderwidth=0,
-        highlightthickness=0,
-        activestyle="none",
-        exportselection=False
-    )
-
-    lista_gls.grid(
-        row=1,
-        column=0,
-        padx=(0, 20),
-        pady=10,
-        sticky="n"
-    )
-
-    label_status_gl = tk.Label(
-        frame_lista_status,
-        text="Status:",
-        font=FONTE_LABEL,
-        bg=COR_FUNDO,
-        fg=COR_TEXTO
-    )
-
-    label_status_gl.grid(
-        row=0,
-        column=1,
-        sticky="w",
-        pady=(20, 5)
-    )
-
-    status_gl = tk.StringVar(value="nenhum")
-
-    frame_status_gl = tk.Frame(
-        frame_lista_status,
-        bg=COR_FUNDO
-    )
-
-    frame_status_gl.grid(
-        row=1,
-        column=1,
-        pady=10,
-        sticky="nw"
-    )
-
-    status_opcoes = [
-        "Quero assistir",
-        "Assistindo",
-        "Finalizada",
-        "Abandonei"
-    ]
-
-    radio_status = {}
-
-    for status in status_opcoes:
-        radio = tk.Radiobutton(
-            frame_status_gl,
-            text=status,
-            variable=status_gl,
-            value=status,
-            command=atualizar_destaque_status,
-            font=FONTE_PADRAO,
-            bg=COR_FUNDO,
-            fg=COR_TEXTO
-        )
-        radio.pack(anchor="w", padx=2)
-        radio_status[status] = radio
-
-    lista_gls.bind(
-        "<<ListboxSelect>>",
-        selecionar_gl
-    )
-
-    # -------------------------
-    # Inicialização
-    # -------------------------
 
     atualizar_lista_casais()
-
     janela.mainloop()
