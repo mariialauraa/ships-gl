@@ -69,14 +69,14 @@ def criar_secao_ships(
 
     botao_adicionar = tk.Button(
         frame_botoes_ship,
-        text="Adicionar ship",
+        text="Adicionar",
         command=adicionar_casal,
         font=FONTE_BOTAO,
         bg=COR_ADICIONAR,
         fg=COR_TEXTO_BOTAO,
         relief="flat",
         cursor="hand2",
-        padx=10,
+        width=12,
         pady=5
     )
     botao_adicionar.grid(
@@ -88,14 +88,14 @@ def criar_secao_ships(
 
     botao_editar = tk.Button(
         frame_botoes_ship,
-        text="Editar ship",
+        text="Editar",
         command=editar_casal,
         font=FONTE_BOTAO,
         bg=COR_EDITAR,
         fg=COR_TEXTO_BOTAO,
         relief="flat",
         cursor="hand2",
-        padx=10,
+        width=12,
         pady=5
     )
     botao_editar.grid(
@@ -107,14 +107,14 @@ def criar_secao_ships(
 
     botao_excluir = tk.Button(
         frame_botoes_ship,
-        text="Excluir ship",
+        text="Excluir",
         command=deletar_casal,
         font=FONTE_BOTAO,
         bg=COR_EXCLUIR,
         fg=COR_TEXTO_BOTAO,
         relief="flat",
         cursor="hand2",
-        padx=10,
+        width=12,
         pady=5
     )
     botao_excluir.grid(
@@ -126,14 +126,14 @@ def criar_secao_ships(
 
     botao_limpar = tk.Button(
         frame_botoes_ship,
-        text="Limpar ship",
+        text="Limpar",
         command=limpar_casal,
         font=FONTE_BOTAO,
         bg=COR_LIMPAR,
         fg=COR_TEXTO_BOTAO,
         relief="flat",
         cursor="hand2",
-        padx=10,
+        width=12,
         pady=5
     )
     botao_limpar.grid(

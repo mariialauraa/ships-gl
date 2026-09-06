@@ -40,7 +40,6 @@ def criar_secao_gls(
     label_nova_gl.grid(
         row=0,
         column=0,
-        sticky="w",
         padx=(0, 10),
         pady=(0, 5)
     )
@@ -95,14 +94,14 @@ def criar_secao_gls(
 
     botao_adicionar_gl = tk.Button(
         frame_botoes_gl,
-        text="Adicionar GL",
+        text="Adicionar",
         command=adicionar_gl,
         font=FONTE_BOTAO,
         bg=COR_ADICIONAR,
         fg=COR_TEXTO_BOTAO,
         relief="flat",
         cursor="hand2",
-        padx=10,
+        width=12,
         pady=5
     )
 
@@ -115,14 +114,14 @@ def criar_secao_gls(
 
     botao_editar_gl = tk.Button(
         frame_botoes_gl,
-        text="Editar GL",
+        text="Editar",
         command=editar_gl,
         font=FONTE_BOTAO,
         bg=COR_EDITAR,
         fg=COR_TEXTO_BOTAO,
         relief="flat",
         cursor="hand2",
-        padx=10,
+        width=12,
         pady=5
     )
 
@@ -135,14 +134,14 @@ def criar_secao_gls(
 
     botao_deletar_gl = tk.Button(
         frame_botoes_gl,
-        text="Excluir GL",
+        text="Excluir",
         command=deletar_gl,
         font=FONTE_BOTAO,
         bg=COR_EXCLUIR,
         fg=COR_TEXTO_BOTAO,
         relief="flat",
         cursor="hand2",
-        padx=10,
+        width=12,
         pady=5
     )
 
@@ -155,14 +154,14 @@ def criar_secao_gls(
 
     botao_limpar_gl = tk.Button(
         frame_botoes_gl,
-        text="Limpar GL",
+        text="Limpar",
         command=limpar_gl,
         font=FONTE_BOTAO,
         bg=COR_LIMPAR,
         fg=COR_TEXTO_BOTAO,
         relief="flat",
         cursor="hand2",
-        padx=10,
+        width=12,
         pady=5
     )
 
@@ -190,7 +189,6 @@ def criar_secao_gls(
     label_gls.grid(
         row=0,
         column=0,
-        sticky="w",
         pady=(20, 5)
     )
 
