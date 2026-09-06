@@ -145,7 +145,7 @@ def criar_interface():
         entrada_casal.insert(0, casal)
 
         entrada_gl.delete(0, tk.END)
-
+        entrada_ano_gl.delete(0, tk.END)
         status_gl.set("nenhum")
 
         lista_gls.delete(0, tk.END)
@@ -159,7 +159,9 @@ def criar_interface():
         lista_casais.selection_clear(0, tk.END)
 
         entrada_gl.delete(0, tk.END)
+        entrada_ano_gl.delete(0, tk.END)
         lista_gls.delete(0, tk.END)
+        status_gl.set("nenhum")
 
         entrada_casal.focus_set()
 
@@ -187,11 +189,19 @@ def criar_interface():
         casal = lista_casais.get(selecao[0]).strip()
 
         gl = entrada_gl.get().strip()
+        ano = entrada_ano_gl.get().strip()
 
         if not gl:
             messagebox.showwarning(
                 "Atenção",
                 "Digite o nome da GL."
+            )
+            return
+
+        if ano and not ano.isdigit():
+            messagebox.showwarning(
+                "Atenção",
+                "Digite um ano válido."
             )
             return
 
@@ -209,12 +219,14 @@ def criar_interface():
 
         dados[casal].append({
             "nome": gl,
-            "status": status
+            "status": status,
+            "ano": int(ano) if ano else None
         })
 
         salvar_dados(dados)
 
         entrada_gl.delete(0, tk.END)
+        entrada_ano_gl.delete(0, tk.END)
 
         selecionar_casal()
 
@@ -248,11 +260,19 @@ def criar_interface():
 
         novo_nome_gl = entrada_gl.get().strip()
         novo_status = status_gl.get()
+        novo_ano = entrada_ano_gl.get().strip()
 
         if not novo_nome_gl:
             messagebox.showwarning(
                 "Atenção",
                 "Digite o novo nome da GL."
+            )
+            return
+
+        if not novo_ano.isdigit():
+            messagebox.showwarning(
+                "Atenção",
+                "Digite um ano válido."
             )
             return
         
@@ -268,6 +288,7 @@ def criar_interface():
         
         dados[casal][indice_gl]["nome"] = novo_nome_gl
         dados[casal][indice_gl]["status"] = novo_status
+        dados[casal][indice_gl]["ano"] = int(novo_ano)
 
         salvar_dados(dados)
         selecionar_casal()
@@ -338,13 +359,19 @@ def criar_interface():
 
         entrada_gl.delete(0, tk.END)
         entrada_gl.insert(0, gl["nome"])
+        entrada_ano_gl.delete(0, tk.END)
+
+        if gl["ano"] is not None:
+            entrada_ano_gl.insert(0, gl["ano"])
 
         status_gl.set(gl["status"])
 
 
     def limpar_gl():
         entrada_gl.delete(0, tk.END)
+        entrada_ano_gl.delete(0, tk.END)
         lista_gls.selection_clear(0, tk.END)
+        status_gl.set("nenhum")
 
         entrada_gl.focus_set()
 
@@ -399,7 +426,7 @@ def criar_interface():
 
     entrada_casal = tk.Entry(
         frame_ships,
-        width=35,
+        width=30,
         font=FONTE_PADRAO
     )
     entrada_casal.pack(pady=10, ipady=4)
@@ -522,21 +549,69 @@ def criar_interface():
     # Seção de GLs
     # -------------------------
 
-    label_nova_gl = tk.Label(
+    frame_campo_gl = tk.Frame(
         frame_gls,
+        bg=COR_FUNDO
+    )
+    frame_campo_gl.pack()
+
+    label_nova_gl = tk.Label(
+        frame_campo_gl,
         text="Nome da GL:",
         font=FONTE_LABEL,
         bg=COR_FUNDO,
         fg=COR_TEXTO
     )
-    label_nova_gl.pack(pady=(0, 5))
+
+    label_nova_gl.grid(
+        row=0,
+        column=0,
+        sticky="w",
+        padx=(0, 10),
+        pady=(0, 5)
+    )
 
     entrada_gl = tk.Entry(
-        frame_gls,
-        width=35,
+        frame_campo_gl,
+        width=30,
         font=FONTE_PADRAO
     )
-    entrada_gl.pack(pady=10, ipady=4)
+
+    entrada_gl.grid(
+        row=1,
+        column=0,
+        padx=(0, 10),
+        pady=10,
+        ipady=4
+    )
+
+    label_ano_gl = tk.Label(
+        frame_campo_gl,
+        text="Ano:",
+        font=FONTE_LABEL,
+        bg=COR_FUNDO,
+        fg=COR_TEXTO
+    )
+
+    label_ano_gl.grid(
+        row=0,
+        column=1,
+        sticky="w",
+        pady=(0, 5)
+    )
+
+    entrada_ano_gl = tk.Entry(
+        frame_campo_gl,
+        width=10,
+        font=FONTE_PADRAO
+    )
+
+    entrada_ano_gl.grid(
+        row=1,
+        column=1,
+        pady=10,
+        ipady=4
+    )
 
     frame_botoes_gl = tk.Frame(frame_gls, bg=COR_FUNDO)
     frame_botoes_gl.pack(pady=10)
@@ -621,17 +696,29 @@ def criar_interface():
         pady=5
     )
 
-    label_gls = tk.Label(
+    frame_lista_status = tk.Frame(
         frame_gls,
+        bg=COR_FUNDO
+    )
+    frame_lista_status.pack()
+
+    label_gls = tk.Label(
+        frame_lista_status,
         text="GLs:",
         font=FONTE_LABEL,
         bg=COR_FUNDO,
         fg=COR_TEXTO
     )
-    label_gls.pack(pady=(20, 5))
+
+    label_gls.grid(
+        row=0,
+        column=0,
+        sticky="w",
+        pady=(20, 5)
+    )
 
     lista_gls = tk.Listbox(
-        frame_gls,
+        frame_lista_status,
         width=35,
         height=12,
         font=FONTE_LISTA,
@@ -645,24 +732,43 @@ def criar_interface():
         activestyle="none",
         exportselection=False
     )
-    lista_gls.pack(pady=10)
+
+    lista_gls.grid(
+        row=1,
+        column=0,
+        padx=(0, 20),
+        pady=10,
+        sticky="n"
+    )
 
     label_status_gl = tk.Label(
-        frame_gls,
+        frame_lista_status,
         text="Status:",
         font=FONTE_LABEL,
         bg=COR_FUNDO,
         fg=COR_TEXTO
     )
-    label_status_gl.pack(pady=(5, 5))
+
+    label_status_gl.grid(
+        row=0,
+        column=1,
+        sticky="w",
+        pady=(20, 5)
+    )
 
     status_gl = tk.StringVar(value="nenhum")
 
     frame_status_gl = tk.Frame(
-        frame_gls,
+        frame_lista_status,
         bg=COR_FUNDO
     )
-    frame_status_gl.pack(pady=(0, 10))
+
+    frame_status_gl.grid(
+        row=1,
+        column=1,
+        pady=10,
+        sticky="nw"
+    )
 
     status_opcoes = [
         "Quero assistir",

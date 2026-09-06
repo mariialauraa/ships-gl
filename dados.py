@@ -17,9 +17,13 @@ def carregar_dados():
                 if isinstance(gl, str):
                     novas_gls.append({
                         "nome": gl,
-                        "status": "Quero assistir"
+                        "status": "Quero assistir",
+                        "ano": None
                     })
                 else:
+                    if "ano" not in gl:
+                        gl["ano"] = None
+
                     novas_gls.append(gl)
 
             dados[casal] = novas_gls

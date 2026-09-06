@@ -2,157 +2,329 @@
     "LMSY": [
         {
             "nome": "Affair",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2024
         },
         {
             "nome": "Harmony Secret",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2025
         },
         {
             "nome": "Hometown Romance",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2026
         }
     ],
     "Englot": [
         {
             "nome": "Show Me Love",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2023
         },
         {
             "nome": "Love Bully",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2024
         },
         {
             "nome": "Petrichor",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2024
         },
         {
             "nome": "Unlimited Love",
-            "status": "Assistindo"
+            "status": "Assistindo",
+            "ano": 2025
         },
         {
             "nome": "4 Elements: The Water",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2026
         }
     ],
     "FreenBecky": [
         {
             "nome": "GAP: The Series",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2022
         },
         {
             "nome": "Uranus 2324",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2024
         },
         {
             "nome": "The Loyal Pin",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2024
         },
         {
             "nome": "4 Elements: The Air",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2026
         },
         {
             "nome": "Cranium",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": null
         }
     ],
     "LingOrm": [
         {
             "nome": "The Secret of Us",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2024
         },
         {
             "nome": "Only You",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2025
         },
         {
             "nome": "In Love Forever",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2026
         }
     ],
     "JanJingjing": [
         {
             "nome": "MuTe / Luv: Hello, is this",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2025
         },
         {
             "nome": "Enemies with Benefits",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2026
         }
     ],
     "EmiBonnie": [
         {
             "nome": "Us",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2025
         },
         {
             "nome": "Moonshadow",
-            "status": "Assistindo"
+            "status": "Assistindo",
+            "ano": 2026
         }
     ],
     "FayeYoko": [
         {
-            "nome": "Blank S1",
-            "status": "Finalizada"
+            "nome": "Blank The Series",
+            "status": "Finalizada",
+            "ano": 2024
         },
         {
-            "nome": "Blank S2",
-            "status": "Finalizada"
+            "nome": "Blank The Series Season 2",
+            "status": "Finalizada",
+            "ano": 2024
         }
     ],
     "FayeAtom": [
         {
             "nome": "Broken of Love",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2026
         }
     ],
     "BleJie": [
         {
             "nome": "ClaireBell",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2025
         }
     ],
     "MieAya": [
         {
             "nome": "Love Beyond Dreams",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2026
         }
     ],
     "MyChan": [
         {
             "nome": "AI Girl",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2026
         }
     ],
     "AppleMim": [
         {
             "nome": "4 Elements: The Earth",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2026
         }
     ],
     "NamneungNoey": [
         {
             "nome": "4 Elements: The Fire",
-            "status": "Finalizada"
+            "status": "Finalizada",
+            "ano": 2026
         }
     ],
     "KaoJane": [
         {
             "nome": "Love Design",
-            "status": "Assistindo"
+            "status": "Assistindo",
+            "ano": 2025
         }
     ],
     "ViewJune": [
         {
             "nome": "23.5",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2024
         }
     ],
     "MilkLove": [
         {
             "nome": "23.5",
-            "status": "Quero assistir"
+            "status": "Quero assistir",
+            "ano": 2024
+        },
+        {
+            "nome": "Whale Store xoxo",
+            "status": "Quero assistir",
+            "ano": 2025
+        },
+        {
+            "nome": "Girl Rules",
+            "status": "Quero assistir",
+            "ano": 2026
+        },
+        {
+            "nome": "Ditto",
+            "status": "Quero assistir",
+            "ano": null
+        }
+    ],
+    "NamtanFilm": [
+        {
+            "nome": "Pluto",
+            "status": "Finalizada",
+            "ano": 2024
+        },
+        {
+            "nome": "Girl Rules",
+            "status": "Quero assistir",
+            "ano": 2026
+        },
+        {
+            "nome": "Her",
+            "status": "Quero assistir",
+            "ano": null
+        }
+    ],
+    "TungpangJessie": [
+        {
+            "nome": "Heart Code",
+            "status": "Quero assistir",
+            "ano": 2026
+        }
+    ],
+    "ShellyPundao": [
+        {
+            "nome": "Roller Coaster",
+            "status": "Quero assistir",
+            "ano": 2025
+        },
+        {
+            "nome": "By Your Side",
+            "status": "Quero assistir",
+            "ano": null
+        }
+    ],
+    "TkNur": [
+        {
+            "nome": "Dangerous Queen",
+            "status": "Quero assistir",
+            "ano": 2025
+        }
+    ],
+    "PuyfaiPloy": [
+        {
+            "nome": "Shades",
+            "status": "Quero assistir",
+            "ano": 2026
+        }
+    ],
+    "ShuMook": [
+        {
+            "nome": "Shades",
+            "status": "Quero assistir",
+            "ano": 2026
+        }
+    ],
+    "NikyEngland": [
+        {
+            "nome": "Shades",
+            "status": "Quero assistir",
+            "ano": 2026
+        }
+    ],
+    "OpalMint": [
+        {
+            "nome": "Shades",
+            "status": "Quero assistir",
+            "ano": 2026
+        }
+    ],
+    "ViewMim": [
+        {
+            "nome": "Us",
+            "status": "Quero assistir",
+            "ano": 2025
+        },
+        {
+            "nome": "Girl Rules",
+            "status": "Quero assistir",
+            "ano": 2026
+        },
+        {
+            "nome": "Bake Love Feeling",
+            "status": "Quero assistir",
+            "ano": null
+        }
+    ],
+    "GinnyJayna": [
+        {
+            "nome": "Poisonous Love",
+            "status": "Quero assistir",
+            "ano": 2025
+        },
+        {
+            "nome": "Lunar Secret",
+            "status": "Quero assistir",
+            "ano": null
+        }
+    ],
+    "LenaMiu": [
+        {
+            "nome": "My Safe Zone",
+            "status": "Quero assistir",
+            "ano": 2025
+        },
+        {
+            "nome": "Please Love",
+            "status": "Quero assistir",
+            "ano": 2026
+        }
+    ],
+    "EnjoyJune": [
+        {
+            "nome": "Denied Love",
+            "status": "Quero assistir",
+            "ano": 2025
+        }
+    ],
+    "IceMemi": [
+        {
+            "nome": "Player",
+            "status": "Quero assistir",
+            "ano": 2025
         }
     ]
 }
