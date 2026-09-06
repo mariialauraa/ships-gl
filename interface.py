@@ -147,11 +147,16 @@ def criar_interface():
         entrada_gl.delete(0, tk.END)
         entrada_ano_gl.delete(0, tk.END)
         status_gl.set("nenhum")
+        atualizar_destaque_status()
 
         lista_gls.delete(0, tk.END)
 
         for gl in dados[casal]:
             lista_gls.insert(tk.END, f" {gl['nome']}")
+
+        if len(dados[casal]) == 1:
+            lista_gls.selection_set(0)
+            selecionar_gl()
 
 
     def limpar_casal():
@@ -162,6 +167,7 @@ def criar_interface():
         entrada_ano_gl.delete(0, tk.END)
         lista_gls.delete(0, tk.END)
         status_gl.set("nenhum")
+        atualizar_destaque_status()
 
         entrada_casal.focus_set()
 
@@ -171,6 +177,16 @@ def criar_interface():
 
         for casal in sorted(dados, key=str.lower):
             lista_casais.insert(tk.END, f" {casal}")
+
+
+    def atualizar_destaque_status():
+        status_selecionado = status_gl.get()
+
+        for status, radio in radio_status.items():
+            if status == status_selecionado:
+                radio.config(font=FONTE_LABEL)
+            else:
+                radio.config(font=FONTE_PADRAO)
     
     # -------------------------
     # Funções GL
@@ -269,7 +285,7 @@ def criar_interface():
             )
             return
 
-        if not novo_ano.isdigit():
+        if novo_ano and not novo_ano.isdigit():
             messagebox.showwarning(
                 "Atenção",
                 "Digite um ano válido."
@@ -288,7 +304,7 @@ def criar_interface():
         
         dados[casal][indice_gl]["nome"] = novo_nome_gl
         dados[casal][indice_gl]["status"] = novo_status
-        dados[casal][indice_gl]["ano"] = int(novo_ano)
+        dados[casal][indice_gl]["ano"] = int(novo_ano) if novo_ano else None
 
         salvar_dados(dados)
         selecionar_casal()
@@ -332,6 +348,7 @@ def criar_interface():
         dados[casal].remove(next(item for item in dados[casal] if item["nome"] == gl))
         salvar_dados(dados)
         entrada_gl.delete(0, tk.END)
+        entrada_ano_gl.delete(0, tk.END)
         
         selecionar_casal()
         
@@ -365,6 +382,7 @@ def criar_interface():
             entrada_ano_gl.insert(0, gl["ano"])
 
         status_gl.set(gl["status"])
+        atualizar_destaque_status()
 
 
     def limpar_gl():
@@ -372,6 +390,7 @@ def criar_interface():
         entrada_ano_gl.delete(0, tk.END)
         lista_gls.selection_clear(0, tk.END)
         status_gl.set("nenhum")
+        atualizar_destaque_status()
 
         entrada_gl.focus_set()
 
@@ -777,17 +796,21 @@ def criar_interface():
         "Abandonei"
     ]
 
+    radio_status = {}
+
     for status in status_opcoes:
         radio = tk.Radiobutton(
             frame_status_gl,
             text=status,
             variable=status_gl,
             value=status,
+            command=atualizar_destaque_status,
             font=FONTE_PADRAO,
             bg=COR_FUNDO,
             fg=COR_TEXTO
         )
         radio.pack(anchor="w", padx=2)
+        radio_status[status] = radio
 
     lista_gls.bind(
         "<<ListboxSelect>>",
